@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map for AFMotor
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MS_DCMotor	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+run			KEYWORD2
+setSpeed	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+FORWARD		LITERAL1
+BACKWARD	LITERAL1
+BRAKE		LITERAL1
+RELEASE		LITERAL1
