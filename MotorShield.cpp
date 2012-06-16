@@ -29,8 +29,10 @@ MS_DCMotor::MS_DCMotor(uint8_t num) {
 		default:
 			return;
 	}
-	pinMode(motorspeed, OUTPUT); //Initiates Motor Channel pin
-	pinMode(motorbrake, OUTPUT); //Initiates Brake Channel pin
+	pinMode(motorspeed, OUTPUT);     //Initializes motor's channel speed pin
+	pinMode(motorbrake, OUTPUT);     //Initializes motor's channel brake pin
+	pinMode(motordirection, OUTPUT); //Initializes motor's channel direction pin
+	pinMode(motorsensor, INPUT);     //Initializes motor's channel current-sensing pin
 }
 
 void MS_DCMotor::run(uint8_t cmd) {
@@ -58,3 +60,6 @@ void MS_DCMotor::setSpeed(uint8_t speed) {
 	analogWrite(motorspeed, speed);
 }
 
+uint8_t MS_DCMotor::getCurrentSensing(void) {
+	return analogRead(motorsensor);
+}
