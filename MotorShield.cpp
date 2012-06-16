@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include "WProgram.h"
 #endif
-#include "MotorShield.h"
+#include "MotorShield.h" 
 
 MS_DCMotor::MS_DCMotor(uint8_t num) {
 	switch (num) {
@@ -33,6 +33,9 @@ MS_DCMotor::MS_DCMotor(uint8_t num) {
 	pinMode(motorbrake, OUTPUT);     //Initializes motor's channel brake pin
 	pinMode(motordirection, OUTPUT); //Initializes motor's channel direction pin
 	pinMode(motorsensor, INPUT);     //Initializes motor's channel current-sensing pin
+	
+	voltageMultiplicator = (5.0 / 1024.0);
+	voltsPerAmp = 1.65;
 }
 
 void MS_DCMotor::run(uint8_t cmd) {
@@ -60,6 +63,18 @@ void MS_DCMotor::setSpeed(uint8_t speed) {
 	analogWrite(motorspeed, speed);
 }
 
-uint8_t MS_DCMotor::getCurrentSensing(void) {
-	return analogRead(motorsensor);
+float MS_DCMotor::getCurrentAmps(void) {
+	readCurrentSensor();
+	return currentAmps;
+}
+
+float MS_DCMotor::getCurrentVoltage(void) {
+	readCurrentSensor();
+	return currentVolts;
+}
+
+void MS_DCMotor::readCurrentSensor(void) {
+	float currentRawSensor = analogRead(motorsensor);
+	currentVolts = voltageMultiplicator * currentRawSensor;
+	currentAmps = currentVolts / voltsPerAmp;
 }

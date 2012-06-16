@@ -28,9 +28,12 @@ public:
 	MS_DCMotor(uint8_t motornum);
 	void run(uint8_t);
 	void setSpeed(uint8_t);
-	uint8_t getCurrentSensing(void);
+	float getCurrentAmps(void);
+	float getCurrentVoltage(void);
 	
 private:
+	void readCurrentSensor(void);
+	float currentVolts, currentAmps, voltageMultiplicator, voltsPerAmp;
 	uint8_t motorspeed, motorbrake, motordirection, motorsensor;
 };
 
