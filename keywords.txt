@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map for AFMotor
+# Syntax Coloring Map for MotorShield
 #######################################
 
 #######################################
@@ -12,7 +12,7 @@ MS_DCMotor	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-run			KEYWORD2
+run   		KEYWORD2
 setSpeed	KEYWORD2
 
 #######################################
@@ -21,5 +21,5 @@ setSpeed	KEYWORD2
 
 FORWARD		LITERAL1
 BACKWARD	LITERAL1
-BRAKE		LITERAL1
+BRAKE		  LITERAL1
 RELEASE		LITERAL1
