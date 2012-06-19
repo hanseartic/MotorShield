@@ -39,6 +39,7 @@ MS_DCMotor::MS_DCMotor(uint8_t num) {
 }
 
 void MS_DCMotor::run(uint8_t cmd) {
+	runstate = cmd;
 	switch (cmd) {
 		case RELEASE:
 			digitalWrite(motorbrake, LOW);
@@ -63,6 +64,9 @@ void MS_DCMotor::setSpeed(uint8_t speed) {
 	analogWrite(motorspeed, speed);
 }
 
+uint8_t MS_DCMotor::getState(void) {
+	return runstate;
+}
 float MS_DCMotor::getCurrentAmps(void) {
 	readCurrentSensor();
 	return currentAmps;
