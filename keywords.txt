@@ -14,6 +14,7 @@ MS_DCMotor	KEYWORD1
 
 run   		KEYWORD2
 setSpeed	KEYWORD2
+getState  KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
