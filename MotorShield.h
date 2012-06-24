@@ -18,7 +18,7 @@
 #define MOTOR_B_BRAKE 8
 #define MOTOR_B_SENSOR A1
 
-#define FORWARD 0
+#define FORWARD 1
 #define BACKWARD 2
 #define BRAKE 4
 #define RELEASE 8
@@ -26,9 +26,10 @@
 class MS_DCMotor {
 public:
 	MS_DCMotor(uint8_t motornum);
-	void run(uint8_t);
+	bool run(uint8_t);
 	void setSpeed(uint8_t);
 	uint8_t getState(void);
+	uint8_t getDirection(void);
 	float getCurrentAmps(void);
 	float getCurrentVoltage(void);
 	

@@ -38,24 +38,30 @@ MS_DCMotor::MS_DCMotor(uint8_t num) {
 	voltsPerAmp = 1.65;
 }
 
-void MS_DCMotor::run(uint8_t cmd) {
-	runstate = cmd;
-	switch (cmd) {
-		case RELEASE:
-			digitalWrite(motorbrake, LOW);
-			break;
-		case BRAKE:
-			digitalWrite(motorbrake, HIGH);
-			break;
-		case FORWARD:
-			digitalWrite(motordirection, HIGH);
-			break;
-		case BACKWARD:
-			digitalWrite(motordirection, LOW);
-			break;
-		default:
-			return;
+bool MS_DCMotor::run(uint8_t cmds) {
+	if (((FORWARD | BACKWARD) & cmds) == (FORWARD | BACKWARD)) {
+		return false;
 	}
+	if (((BRAKE | RELEASE) & cmds) == (BRAKE | RELEASE)) {
+		return false;
+	}
+	if ((cmds & FORWARD) == FORWARD) {
+		digitalWrite(motordirection, HIGH);
+		runstate = (runstate & (BRAKE | RELEASE)) | FORWARD;
+	}
+	if ((cmds & BACKWARD) == BACKWARD) {
+		digitalWrite(motordirection, LOW);
+		runstate = (runstate & (BRAKE | RELEASE)) | BACKWARD;
+	}
+	if ((cmds & RELEASE) == RELEASE) {
+		digitalWrite(motorbrake, LOW);
+		runstate = (runstate & (FORWARD | BACKWARD)) | RELEASE;
+	}
+	if ((cmds & BRAKE) == BRAKE) {
+		digitalWrite(motorbrake, HIGH);
+		runstate = (runstate & (FORWARD | BACKWARD)) | BRAKE;
+	}
+	return true;
 }
 
 void MS_DCMotor::setSpeed(uint8_t speed) {
@@ -65,8 +71,13 @@ void MS_DCMotor::setSpeed(uint8_t speed) {
 }
 
 uint8_t MS_DCMotor::getState(void) {
-	return runstate;
+	return runstate & (BRAKE | RELEASE);
 }
+
+uint8_t MS_DCMotor::getDirection(void) {
+	return runstate & (FORWARD | BACKWARD);
+}
+
 float MS_DCMotor::getCurrentAmps(void) {
 	readCurrentSensor();
 	return currentAmps;

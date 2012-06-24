@@ -12,15 +12,20 @@ MS_DCMotor	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-run   		KEYWORD2
+run	KEYWORD2
 setSpeed	KEYWORD2
-getState  KEYWORD2
+getState	KEYWORD2
+getDirection	KEYWORD2
+getCurrentAmps	KEYWORD2
+getCurrentVoltage	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
 
-FORWARD		LITERAL1
+FORWARD	LITERAL1
 BACKWARD	LITERAL1
-BRAKE		  LITERAL1
-RELEASE		LITERAL1
+BRAKE	LITERAL1
+RELEASE	LITERAL1
+MOTOR_A LITERAL1
+MOTOR_B LITERAL1
